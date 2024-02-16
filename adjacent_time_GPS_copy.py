@@ -53,5 +53,10 @@ for jpg_file in os.listdir(target_dir):
             heic_filename = os.path.basename(heic_file)
             run(["exiftool", "-tagsfromfile", heic_file, "-gps:all", "-overwrite_original", jpg_path])
             print(f"GPS coordinates copied successfully from {heic_filename}.")
+
+            # Add Exif comment to the edited file
+            comment = "Copied from adjacent iPhone data"
+            run(["exiftool", f"-comment={comment}", jpg_path])
+            print(f"Exif comment added to {jpg_path}.")
         else:
             print(f"No matching HEIC file found within 5 minutes for {jpg_path}.")
